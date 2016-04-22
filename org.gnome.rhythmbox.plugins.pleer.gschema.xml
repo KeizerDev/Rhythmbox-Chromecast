@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema path="/org/gnome/rhythmbox/plugins/pleer/" id="org.gnome.rhythmbox.plugins.pleer">
+		<key type="s" name="dir-download-string">
+			<default>""</default>
+			<summary>Folder Pleer downloads in</summary>
+			<description>Bla</description>
+		</key>
+	</schema>
+</schemalist>

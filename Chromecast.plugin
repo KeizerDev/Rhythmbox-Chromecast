@@ -1,0 +1,10 @@
+[Plugin]
+Loader=python3
+Module=pleer
+IAge=1
+Depends=rb
+Name=Chromecast
+Description=Send all your music to your Chromecast (Audio).
+Authors=KeizerDev & G-S2h
+Copyright=Copyright © 2015 KeizerDev & G-S2h
+Website=https://github.com/KeizerDev/Rhythmbox-Chromecast

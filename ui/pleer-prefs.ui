@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface>
+	<object class="GtkVBox" id="pleer-prefs">
+		<property name="visible">True</property>
+		<child>
+			<object class="GtkLabel" id="headerlabel">
+				<property name="visible">True</property>
+				<property name="xalign">0</property>
+				<property name="label">Pleer preferences</property>
+				<attributes>
+					<attribute name="weight" value="bold" />
+				</attributes>
+			</object>
+		</child>
+		
+		<child>
+			<object class="GtkLabel" id="downloadlabel">
+				<property name="visible">True</property>
+				<property name="xalign">0</property>
+				<property name="label">Download directory: </property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkAlignment" id="downloadalignment">
+				<property name="visible">True</property>
+				<property name="can_focus">False</property>
+				<child>
+					<object class="GtkHBox" id="downloadhbox">
+						<property name="visible">True</property>
+						<property name="can_focus">False</property>
+						<child>
+							<object class="GtkEntry" id="dir_download_string">
+								<property name="visible">True</property>
+								<property name="can_focus">True</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkButton" id="dir_download_bt">
+								<property name="use_action_appearance">False</property>
+								<property name="visible">True</property>
+								<property name="can_focus">True</property>
+								<child>
+									<object class="GtkImage" id="browseimage">
+										<property name="visible">True</property>
+										<property name="can_focus">False</property>
+										<property name="stock">gtk-open</property>
+									</object>
+								</child>
+							</object>
+						</child>
+					</object>
+				</child>
+			</object>
+		</child>
+		
+		<child>
+			<object class="GtkCheckButton" id="opt_searchInPopup">
+				<property name="label">_Add Search artist in context menu</property>
+				<property name="visible">True</property>
+				<property name="can_focus">True</property>
+				<property name="receives_default">False</property>
+				<property name="use_underline">True</property>
+				<property name="xalign">0</property>
+				<property name="draw_indicator">True</property>
+			</object>
+		</child>
+	</object>
+</interface>

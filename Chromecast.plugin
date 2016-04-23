@@ -1,7 +1,7 @@
 [Plugin]
 Loader=python3
-Module=pleer
-IAge=1
+Module=Chromecast
+IAge=2
 Depends=rb
 Name=Chromecast
 Description=Send all your music to your Chromecast (Audio).

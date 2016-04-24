@@ -1,5 +1,5 @@
 #Rhythmbox plugin for Chromecast Support
-##Project explanation for @G-S2h:
+##Project explanation
 I was thinking of a setting under tools where I can lookup for available chromecasts and toggle the connection between them **(I'm not sure about the possibilities of that)**. Creating a new library(Like Rhythmbox-pleer is) is also okay but mabe too much for such a utility.
 
 When I'm connected to a chromecast and I want to play a track, it should look to the player what path the music is and make it ready in the player but don't play it. The player should be insync of the chromecast instead of otherwise. The pc should be muted and the sound settings in Rhythmbox should be equal/listen to:  
@@ -20,7 +20,6 @@ The libs I want to use are:
 - https://github.com/balloob/pychromecast
 - http.server
 
-I think it's do able in like a weekend. Hope you want to help me :).
 
 ##Installation: 
 1. `$ cd ~/.local/share/rhythmbox/plugins`

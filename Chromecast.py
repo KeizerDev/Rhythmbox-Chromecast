@@ -35,10 +35,11 @@ class ChromecastSource(RB.StaticPlaylistSource):
 
         # PlayPause listener
         self.__signals.append((player.connect("playing-changed", self.playing_changed_callback), player))
-        playing_source = player.get_playing_source()
-        # FIXME: Do not call the callback directly, move the common
-        # code to a new method and call it in both places.
-        self.source_changed_callback(player, playing_source)
+        # Song Changed
+        self.__signals.append((player.connect("playing-song-changed", self.song_changed_callback), player))
+        self.__signals.append((player.connect("volume_changed", self.volume_changed), player))
+
+
         model = self.get_property("query-model")
         playing_entry = player.get_playing_entry()
         # If the current playing entry is not in the playing source's
@@ -46,15 +47,12 @@ class ChromecastSource(RB.StaticPlaylistSource):
         # it appears in the sidebar and display page while the track
         # is playing. The track is removed from both views when it
         # stops playing (in the "song_changed_callback").
+        model.add_entry(["hallo", "Connected"], 1)
+        self.query_model.add_entry(entry, -1)
+
         iter = Gtk.TreeIter()
         if playing_entry and not model.entry_to_iter(playing_entry, iter):
             model.add_entry(playing_entry, 0)
-            # signals.append((player.connect(
-            #     "playing-song-changed",
-            #     self.song_changed_callback,
-            #     False),
-            #                 player))
-            model.add_entry(["hallo", "Connected"], 1)
 
     def draw_sidebar(self):
         shell = self.get_property("shell")
@@ -106,14 +104,21 @@ class ChromecastSource(RB.StaticPlaylistSource):
 
     def playing_changed_callback(self, player, playing):
         print("PLAY STATE CHANGED!")
-        if self.__chromecast_player.status.content_id is None:
-            self.__chromecast_player.play_media('http://pleer.com/browser-extension/files/545026i1uP.mp3', 'video/mp3')
+        # if self.__chromecast_player.status.content_id is None:
+        #     self.__chromecast_player.play_media('http://192.168.1.147:8000/play.mp3', 'video/mp3')
         if playing:
             state = RB.EntryViewState.PLAYING
             self.__chromecast_player.play()
         else:
             state = RB.EntryViewState.PAUSED
             self.__chromecast_player.pause()
+
+    def song_changed_callback(self, player, entry):
+        self.__chromecast_player.play_media('http://192.168.1.147:8000/play.mp3', 'video/mp3')
+
+    def volume_changed(self, player, volume):
+        print("ALLAH" + volume)
+        self.__chromecast_player.play_media('http://192.168.1.147:8000/play.mp3', 'video/mp3')
 
 
 # self.__chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
@@ -129,7 +134,7 @@ class Chromecast(GObject.Object, Peas.Activatable):
 
     def do_activate(self):
         shell = self.object
-        # create Now Playing source
+        # create Chromecast source
         self.__source = GObject.new(
             ChromecastSource,
             shell=shell,

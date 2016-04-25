@@ -1,11 +1,11 @@
-import errno
 import os
 import sys
 import time
-from urllib.parse import urlparse, unquote
 from wsgiref.simple_server import make_server
 
 from gi.repository import GObject
+
+from Utils import resolve_path
 
 PYVER = sys.version_info[0]
 if PYVER >= 3:
@@ -43,24 +43,6 @@ class ChromecastServer(object):
     def _handle_current(self, response):
         shell = self.plugin.get_property("shell")
         player = shell.get_property("shell-player")
-        if player.get_playing_entry() is not None:
-            # something is playing; get the track list from the play queue or the current playlists
-            filename = unquote(urlparse(player.get_playing_entry().get_playback_uri()).path).encode('utf8')
-            symlink_force(filename, resolve_path('play.mp3'))
-
-        # handle any action
-        #
-        # title = 'Rhythmweb'
-        # playing = '<span id="not-playing">%s</span>' % song
-
-        # player_html = open(resolve_path('play.mp3'))
-
-        # result = player_html.read() % {'title': title,
-        #                                'playing': playing}
-        #
-        # player_html.close()
-
-
 
         if PYVER >= 3:
             track = open(resolve_path('play.mp3'), "rb")
@@ -78,10 +60,6 @@ class ChromecastServer(object):
             result = track.read()
 
         return result
-
-
-def resolve_path(path):
-    return os.path.join(os.path.dirname(__file__), path)
 
 
 def log(message, args):
@@ -104,14 +82,3 @@ def iostring(bytestr):
         return io.BytesIO(bytestring(bytestr))
     else:
         return bytestr
-
-
-def symlink_force(target, link_name):
-    try:
-        os.symlink(target, link_name)
-    except OSError as e:
-        if e.errno == errno.EEXIST:
-            os.remove(link_name)
-            os.symlink(target, link_name)
-        else:
-            raise e

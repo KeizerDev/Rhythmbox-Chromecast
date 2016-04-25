@@ -26,6 +26,25 @@ $ cd chromecast/
 $ pip install -r requirements.txt
 ```
 
+When your done update the `Prefs.py` file with your preferred settings. This is a quick fix because of the lack of a decent GUI. **Will be fixed soon!**
+
+Milestones: 
+- [x] Connect to a Chromecast.
+- [x] Play/Pause music with button/media buttons.
+- [x] Send local music to your chromecast.
+- [ ] Create a GUI where you can select/connect to your chromecast.
+- [ ] Create a settings menu for port and ip settings.
+- [ ] Create support for other plugins that are not local.
+- [ ] Listen to Rhythmbox volume manager and change it on the chromecast.
+- [ ] Mute rhythmbox locally (or give option to do so).
+ 
+Optional:
+- [ ] Create support for multiple chromecasts
+
+
+**Known bugs:**
+- When starting Rhythmbox with the plugin or when you enable it, it will freeze for a while. This because it will auto connect to the chromecast you've filled in the Prefs.py file. This will be fixed when we have a GUI.
+
 ### Contributors
 
 * [Robert-Jan Keizer (KeizerDev)](https://github.com/KeizerDev/)

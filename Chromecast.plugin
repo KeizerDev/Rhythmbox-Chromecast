@@ -6,5 +6,5 @@ Depends=rb
 Name=Chromecast
 Description=Send all your music to your Chromecast (Audio).
 Authors=KeizerDev & G-S2h
-Copyright=Copyright © 2015 KeizerDev & G-S2h
+Copyright=Copyright © 2015 KeizerDev
 Website=https://github.com/KeizerDev/Rhythmbox-Chromecast

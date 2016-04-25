@@ -17,15 +17,12 @@ $ cd chromecast/
 $ pip install -r requirements.txt
 ```
 <p align="center">
-Or copy and paste this script (source can be found <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">here</a>:
+Or run <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">this</a> script:
 </p>
 
 ```bash
 $ wget -O - https://git.io/vwzUw | bash
 ```
-
-### Debugging:
-If you want to improve or add something run `rhythmbox` from your terminal and you will see the python error log.
 
 ### Contributors
 

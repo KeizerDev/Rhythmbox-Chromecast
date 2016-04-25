@@ -1,7 +1,7 @@
-<h1 align="center">Chromecast Support for Rhythmbox v2.9x/v3.x</h1>
+<h1 align="center">Rhythmbox Chromecast</h1>
 
 <p align="center">
-Stream all your local music to your Chromecast (Audio)
+Support to stream all your local music to your Chromecast (Audio) within Rhythmbox v2.9x/v3.x
 </p>
 
 <p align="center">
@@ -20,7 +20,7 @@ $ cd chromecast/
 $ pip install -r requirements.txt
 ```
 <p align="center">
-Or copy and paste this script (source can be found [here](https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh)):
+Or copy and paste this script (source can be found <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">here</a>:
 </p>
 
 ```bash

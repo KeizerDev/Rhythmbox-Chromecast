@@ -1,10 +1,10 @@
 import operator
-import os
 import socket
 
 import pychromecast
 from gi.repository import RB, GObject, Gtk
 
+import ChromecastListeners
 import ChromecastServer
 
 # try to load avahi, don't complain if it fails
@@ -22,27 +22,20 @@ class ChromecastSource(RB.Source):
         super(ChromecastSource, self).__init__(kwargs)
         self.port = 8000
         self.plugin = self.props.plugin
-        self.__activated = False
-        self.__isChromecastConnect = False
-        self.__chromecast = None
-        self.__chromecast_player = None
-        self.__entry_view = None
-        self.__signals = []
         self.player = None
         self.shell = None
         self.db = None
+        self.entrygroup = None
+        self.isPluginActivated = False
+        self.isCastConnect = False
+        self.chromecast = None
+        self.chromecastPlayer = None
+        self.chromecastListeners = None
+        self.__entry_view = None
 
     def setup(self):
-        # if self.__activated:
-        #     return
-        self.__chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
-        self.__chromecast.wait()
-        self.__chromecast_player = self.__chromecast.media_controller
-        self.__activated = True
-        # self.__entry_view = self.get_entry_view()
-        self.draw_sidebar()
-        # self.setup_actions()
-
+        if self.isPluginActivated:
+            return
 
         shell = self.get_property("shell")
         player = shell.get_property("shell-player")
@@ -51,15 +44,19 @@ class ChromecastSource(RB.Source):
         self.player = player
         self.db = shell.get_property("db")
 
-        # Source change listener
-        # self.__signals.append((player.connect("playing-source-changed", self.source_changed_callback), player))
+        self.chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
+        self.chromecast.wait()
+        self.chromecastPlayer = self.chromecast.media_controller
 
-        # PlayPause listener
-        self.__signals.append((player.connect("playing-changed", self.playing_changed_callback), player))
-        # Song Changed
-        self.__signals.append((player.connect("playing-song-changed", self.song_changed_callback), player))
+        # self.chromecastListeners = ChromecastListeners.ChromecastListeners(self.chromecast)
 
-        # self.__signals.append((player.connect("volume-changed", self.volume_changed), player))
+        self.shell_cb_ids = (
+            self.player.connect('playing-song-changed', self.song_changed_cb),
+            self.player.connect('playing-changed', self.player_changed_cb)
+        )
+
+        self.draw_sidebar()
+
 
         model = self.get_property("query-model")
         playing_entry = player.get_playing_entry()
@@ -75,8 +72,23 @@ class ChromecastSource(RB.Source):
         if playing_entry and not model.entry_to_iter(playing_entry, iter):
             model.add_entry(playing_entry, 0)
 
+        self.isPluginActivated = True
+
         self.server = ChromecastServer.ChromecastServer('', self.port, self)
         self._mdns_publish()
+
+
+    def uninstall(self):
+        self._mdns_withdraw()
+        self.server.shutdown()
+        self.server = None
+
+        for id in self.shell_cb_ids:
+            self.player.disconnect(id)
+
+        self.player = None
+        self.shell = None
+        self.db = None
 
     def _mdns_publish(self):
         if use_mdns:
@@ -156,22 +168,14 @@ class ChromecastSource(RB.Source):
                  "<i>" + GObject.markup_escape_text(album) + "</i></span>"
         renderer.set_property("markup", markup)
 
-    def playing_changed_callback(self, player, playing):
+
+    def player_changed_cb(self, playing, entry):
         print("PLAY STATE CHANGED!")
-        # if self.__chromecast_player.status.content_id is None:
-        #     self.__chromecast_player.play_media('http://192.168.1.147:8000/play.mp3', 'video/mp3')
         if playing:
-            state = RB.EntryViewState.PLAYING
-            self.__chromecast_player.play()
+            self.chromecastPlayer.play()
         else:
-            state = RB.EntryViewState.PAUSED
-            self.__chromecast_player.pause()
+            self.chromecastPlayer.pause()
 
-    def song_changed_callback(self, player, entry):
-        self.__chromecast_player.play_media('http://192.168.1.147:8000/', 'video/mp3')
-        path = os.path.split(entry.get_playback_uri())  # shell.props.shell_player.get_playing_entry().get_playback_uri()
-        print("Allah" + path[0])
 
-    def volume_changed(self, player, volume):
-        print("ALLAH" + volume)
-        self.__chromecast_player.play_media('http://192.168.1.147:8000/', 'video/mp3')
+    def song_changed_cb(self, entry, playing):
+        self.chromecastPlayer.play_media('http://192.168.1.147:8000/', 'video/mp3')

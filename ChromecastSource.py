@@ -8,6 +8,8 @@ import ChromecastListeners
 import ChromecastServer
 
 # try to load avahi, don't complain if it fails
+import Prefs
+
 try:
     import dbus
     import avahi
@@ -20,7 +22,7 @@ except:
 class ChromecastSource(RB.Source):
     def __init__(self, **kwargs):
         super(ChromecastSource, self).__init__(kwargs)
-        self.port = 8000
+        self.port = Prefs.port
         self.plugin = self.props.plugin
         self.player = None
         self.shell = None
@@ -44,7 +46,7 @@ class ChromecastSource(RB.Source):
         self.player = player
         self.db = shell.get_property("db")
 
-        self.chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
+        self.chromecast = pychromecast.get_chromecast(friendly_name=Prefs.chromecastName)
         self.chromecast.wait()
         # self.chromecastPlayer = self.chromecast.media_controller
 
@@ -167,4 +169,3 @@ class ChromecastSource(RB.Source):
                  "<b>" + GObject.markup_escape_text(title) + "</b>\n" + \
                  "<i>" + GObject.markup_escape_text(album) + "</i></span>"
         renderer.set_property("markup", markup)
-

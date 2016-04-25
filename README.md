@@ -26,7 +26,7 @@ $ cd chromecast/
 $ pip install -r requirements.txt
 ```
 
-When your done update the `Prefs.py` file with your preferred settings. This is a quick fix because of the lack of a decent GUI. **Will be fixed soon!**
+After that you have to update the `Prefs.py` file with your preferred settings. This is a quick fix because of the lack of a decent GUI. **Will be fixed soon!**
 
 Milestones: 
 - [x] Connect to a Chromecast.

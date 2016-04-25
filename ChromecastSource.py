@@ -46,13 +46,13 @@ class ChromecastSource(RB.Source):
 
         self.chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
         self.chromecast.wait()
-        self.chromecastPlayer = self.chromecast.media_controller
+        # self.chromecastPlayer = self.chromecast.media_controller
 
-        # self.chromecastListeners = ChromecastListeners.ChromecastListeners(self.chromecast)
+        self.chromecastListeners = ChromecastListeners.ChromecastListeners(self.chromecast)
 
         self.shell_cb_ids = (
-            self.player.connect('playing-song-changed', self.song_changed_cb),
-            self.player.connect('playing-changed', self.player_changed_cb)
+            self.player.connect('playing-song-changed', self.chromecastListeners.song_changed_cb),
+            self.player.connect('playing-changed', self.chromecastListeners.player_changed_cb)
         )
 
         self.draw_sidebar()
@@ -168,14 +168,3 @@ class ChromecastSource(RB.Source):
                  "<i>" + GObject.markup_escape_text(album) + "</i></span>"
         renderer.set_property("markup", markup)
 
-
-    def player_changed_cb(self, playing, entry):
-        print("PLAY STATE CHANGED!")
-        if playing:
-            self.chromecastPlayer.play()
-        else:
-            self.chromecastPlayer.pause()
-
-
-    def song_changed_cb(self, entry, playing):
-        self.chromecastPlayer.play_media('http://192.168.1.147:8000/', 'video/mp3')

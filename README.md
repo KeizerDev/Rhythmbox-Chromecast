@@ -1,8 +1,5 @@
 <h1 align="center">Rhythmbox Chromecast</h1>
-
-<p align="center">
-Support to stream all your local music to your Chromecast (Audio) within Rhythmbox v2.9x/v3.x
-</p>
+<p align="center">Stream all your local music to your Chromecast (Audio).</p>
 
 <p align="center">
     <a href="http://opensource.org/licenses/MIT">

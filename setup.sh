@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd ~/.local/share/rhythmbox/plugins/
 if [ ! -d "./chromecast" ]
     then

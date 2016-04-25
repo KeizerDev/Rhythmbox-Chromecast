@@ -5,7 +5,7 @@ from Utils import resolve_path, symlink_force
 
 class ChromecastListeners:
     chromecastPlayer = None
-    serverIp = "192.168.1.147"
+    serverIp = '192.168.1.147'
     port = 8000
 
     def __init__(self, chromecastPlayer):
@@ -23,4 +23,4 @@ class ChromecastListeners:
         filename = unquote(urlparse(playing.get_playback_uri()).path).encode('utf8')
         symlink_force(filename, resolve_path('play.mp3'))
 
-        self.chromecastPlayer.play_media('http://192.168.1.147:8000/', 'video/mp3')
+        self.chromecastPlayer.play_media('http://%s:8000/'.format(self.serverIp), 'video/mp3')

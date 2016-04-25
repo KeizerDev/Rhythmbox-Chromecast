@@ -1,23 +1,39 @@
-#Rhythmbox plugin for Chromecast Support
+<h1 align="center">Chromecast Support for Rhythmbox v2.9x/v3.x</h1>
 
-The libs I want to use are:
-- https://github.com/balloob/pychromecast
-- http.server
+<p align="center">
+Stream all your local music to your Chromecast (Audio)
+</p>
 
+<p align="center">
+    <a href="http://opensource.org/licenses/MIT">
+        <img src="https://img.shields.io/npm/l/express.svg">
+    </a>    
+</p>
 
-##Installation: 
+----
+
+<h2 align="center">Installation:</h2>
 ```bash
 $ cd ~/.local/share/rhythmbox/plugins/
 $ git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast
 $ cd chromecast/
 $ pip install -r requirements.txt
 ```
-
+<p align="center">
 Or copy and paste this script (source can be found [here](https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh)):
+</p>
 
 ```bash
-$ curl -s https://git.io/vwzUw | bash 
+$ wget -O - https://git.io/vwzUw | bash
 ```
 
-##Debugging:
+### Debugging:
 If you want to improve or add something run `rhythmbox` from your terminal and you will see the python error log.
+
+### Contributors
+
+* [Robert-Jan Keizer (KeizerDev)](https://github.com/KeizerDev/)
+
+### License
+
+Rhythmbox-Chromecast is released under the MIT license.

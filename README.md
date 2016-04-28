@@ -36,7 +36,6 @@ git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast
 sudo pip3 install -r requirements.txt
 ```
 
-
 After that you have to update the `Prefs.py` file with your preferred settings. This is a quick fix because of the lack of a decent GUI. **Will be fixed soon!**
 
 Milestones: 

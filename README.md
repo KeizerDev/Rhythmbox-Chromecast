@@ -11,7 +11,9 @@
 
 <h2 align="center">Installation:</h2>
 <p align="center">
-<b>First</b> make sure you've installed <i>python-pip</i>.<br/>
+<b>First</b> make sure you've installed <i>python-pip</i>.
+<br/>
+<br/>
 Run <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">this</a> script (You can also use it to update it):
 </p>
 ```bash

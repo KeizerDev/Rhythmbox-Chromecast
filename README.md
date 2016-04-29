@@ -11,29 +11,20 @@
 
 <h2 align="center">Installation:</h2>
 <p align="center">
+<b>First</b> make sure you've installed <i>python-pip</i>.<br/>
 Run <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">this</a> script (You can also use it to update it):
 </p>
 ```bash
 $ wget -O - https://git.io/vwzUw | bash
 ```
 <p align="center">
-Or 
+Or manually 
 </p>
 ```bash
 $ cd ~/.local/share/rhythmbox/plugins/
 $ git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast
 $ cd chromecast/
 $ pip install -r requirements.txt
-```
-
-<b>Ubuntu Installation (14.04 and later)</b>
-
-```
-sudo apt install python3-pip
-mkdir -p ~/.local/share/rhythmbox/plugins/
-cd ~/.local/share/rhythmbox/plugins/
-git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast
-sudo pip3 install -r requirements.txt
 ```
 
 After that you have to update the `Prefs.py` file with your preferred settings. This is a quick fix because of the lack of a decent GUI. **Will be fixed soon!**

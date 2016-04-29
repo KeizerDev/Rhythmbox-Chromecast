@@ -51,6 +51,7 @@ Optional:
 ### Contributors
 
 * [Robert-Jan Keizer (KeizerDev)](https://github.com/KeizerDev/)
+* [David Mohammed (fossfreedom)](https://github.com/fossfreedom)
 
 ### License
 

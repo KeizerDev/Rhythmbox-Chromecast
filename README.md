@@ -11,7 +11,7 @@
 
 <h2 align="center">Installation:</h2>
 <p align="center">
-Run <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">this</a> script:
+Run <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">this</a> script (You can also use it to update it):
 </p>
 ```bash
 $ wget -O - https://git.io/vwzUw | bash

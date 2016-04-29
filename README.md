@@ -21,8 +21,8 @@ Or
 </p>
 ```bash
 $ cd ~/.local/share/rhythmbox/plugins/
-$ git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast
-$ cd chromecast/
+$ git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git Chromecast
+$ cd Chromecast/
 $ pip install -r requirements.txt
 ```
 
@@ -32,7 +32,7 @@ $ pip install -r requirements.txt
 sudo apt install python3-pip
 mkdir -p ~/.local/share/rhythmbox/plugins/
 cd ~/.local/share/rhythmbox/plugins/
-git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast
+git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git Chromecast
 sudo pip3 install -r requirements.txt
 ```
 

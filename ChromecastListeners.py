@@ -1,6 +1,11 @@
 from urllib.parse import urlparse, unquote
 
-import Prefs
+from gi.repository import Gio
+
+#import Prefs
+from ChromecastPrefs import CHROMECAST_SCHEMA
+from ChromecastPrefs import get_lan_ip_address
+
 from Utils import resolve_path, symlink_force
 
 
@@ -22,4 +27,12 @@ class ChromecastListeners:
         filename = unquote(urlparse(entry.get_playback_uri()).path).encode('utf8')
         symlink_force(filename, resolve_path('play.mp3'))
 
-        self.chromecastPlayer.play_media(Prefs.server, 'video/mp3')
+        self._settings = Gio.Settings.new(CHROMECAST_SCHEMA)
+
+        if self._settings['auto-ip']:
+            server = get_lan_ip_address()
+        else:
+            server = self._settings['ip']
+
+
+        self.chromecastPlayer.play_media(server, 'video/mp3')

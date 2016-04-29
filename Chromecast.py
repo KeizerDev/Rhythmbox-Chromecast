@@ -3,9 +3,8 @@
 from __future__ import print_function
 
 from gi.repository import RB, GObject, Peas, Gtk
+from ChromecastPrefs import Preferences
 
-# self.__chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
-# self.__chromecast_player = self.__chromecast.media_controller
 import ChromecastSource
 
 
@@ -38,3 +37,8 @@ class Chromecast(GObject.Object, Peas.Activatable):
         # destroy source
         self.source.uninstall()
         del self.source
+
+    def _mumble(self):
+        # never called function to prevent pycharm removing reference to Preferences import
+
+        Preferences()

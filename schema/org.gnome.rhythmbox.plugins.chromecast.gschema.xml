@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/org/gnome/rhythmbox/plugins/chromecast/" id="org.gnome.rhythmbox.plugins.chromecast">
+        <key type="s" name="chromecast">
+            <default>''</default>
+            <summary>Default chromecast.</summary>
+            <description>Name of the default chromecast to connect to.</description>
+        </key>
+        <key type="s" name="port">
+            <default>'8000'</default>
+            <summary>Port.</summary>
+            <description>Local port number</description>
+        </key>
+        <key type="s" name="ip">
+            <default>''</default>
+            <summary>ip address</summary>
+            <description>Local ip address</description>
+        </key>
+        <key type="b" name="auto-ip">
+            <default>true</default>
+            <summary>auto ip</summary>
+            <description>use local IP address automatically</description>
+        </key>
+        
+    </schema>
+</schemalist>

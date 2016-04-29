@@ -1,14 +1,16 @@
 import operator
 import socket
+import threading
 
 import pychromecast
-from gi.repository import RB, GObject, Gtk
+from gi.repository import RB, GObject, Gtk, Gio
 
 import ChromecastListeners
 import ChromecastServer
+from ChromecastPrefs import CHROMECAST_SCHEMA
+from ChromecastPrefs import get_lan_ip_address
 
 # try to load avahi, don't complain if it fails
-import Prefs
 
 try:
     import dbus
@@ -22,7 +24,14 @@ except:
 class ChromecastSource(RB.Source):
     def __init__(self, **kwargs):
         super(ChromecastSource, self).__init__(kwargs)
-        self.port = Prefs.port
+
+        self._settings = Gio.Settings.new(CHROMECAST_SCHEMA)
+
+        if self._settings['auto-ip']:
+            self.port = 8000
+        else:
+            self.port = int(self._settings['port'])
+
         self.plugin = self.props.plugin
         self.player = None
         self.shell = None
@@ -46,19 +55,27 @@ class ChromecastSource(RB.Source):
         self.player = player
         self.db = shell.get_property("db")
 
-        self.chromecast = pychromecast.get_chromecast(friendly_name=Prefs.chromecastName)
-        self.chromecast.wait()
-        # self.chromecastPlayer = self.chromecast.media_controller
+        def set_listeners():
+            self.chromecast = pychromecast.get_chromecast(friendly_name=self._settings['chromecast'])
+            self.chromecast.wait()
+            # self.chromecastPlayer = self.chromecast.media_controller
 
-        self.chromecastListeners = ChromecastListeners.ChromecastListeners(self.chromecast)
+            self.chromecastListeners = ChromecastListeners.ChromecastListeners(self.chromecast)
+            self.shell_cb_ids = (
+                self.player.connect('playing-song-changed', self.chromecastListeners.song_changed_cb),
+                self.player.connect('playing-changed', self.chromecastListeners.player_changed_cb)
+            )
 
-        self.shell_cb_ids = (
-            self.player.connect('playing-song-changed', self.chromecastListeners.song_changed_cb),
-            self.player.connect('playing-changed', self.chromecastListeners.player_changed_cb)
-        )
+            self.isPluginActivated = True
+
+            self.server = ChromecastServer.ChromecastServer('', self.port, self)
+            self._mdns_publish()
+
+        thread = threading.Thread(target=set_listeners)
+        thread.daemon = True
+        thread.start()
 
         self.draw_sidebar()
-
 
         model = self.get_property("query-model")
         playing_entry = player.get_playing_entry()
@@ -73,12 +90,6 @@ class ChromecastSource(RB.Source):
         iter = Gtk.TreeIter()
         if playing_entry and not model.entry_to_iter(playing_entry, iter):
             model.add_entry(playing_entry, 0)
-
-        self.isPluginActivated = True
-
-        self.server = ChromecastServer.ChromecastServer('', self.port, self)
-        self._mdns_publish()
-
 
     def uninstall(self):
         self._mdns_withdraw()

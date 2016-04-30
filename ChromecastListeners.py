@@ -34,5 +34,4 @@ class ChromecastListeners:
         else:
             server = self._settings['ip']
 
-
-        self.chromecastPlayer.play_media(server, 'video/mp3')
+        self.chromecastPlayer.play_media("http://{}:{}/".format(server, self._settings['port']), 'video/mp3')

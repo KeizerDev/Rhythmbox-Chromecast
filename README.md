@@ -16,12 +16,15 @@
 <br/>
 Run <a href="https://github.com/KeizerDev/Rhythmbox-Chromecast/blob/master/setup.sh">this</a> script (You can also use it to update it):
 </p>
+
 ```bash
 $ wget -O - https://git.io/vwzUw | bash
 ```
+
 <p align="center">
 Or manually 
 </p>
+
 ```bash
 $ cd ~/.local/share/rhythmbox/plugins/
 $ git clone https://github.com/KeizerDev/Rhythmbox-Chromecast.git chromecast

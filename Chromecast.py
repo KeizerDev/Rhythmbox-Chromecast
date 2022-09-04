@@ -4,7 +4,7 @@ from __future__ import print_function
 
 from gi.repository import RB, GObject, Peas, Gtk
 
-# self.__chromecast = pychromecast.get_chromecast(friendly_name="RobsKamerMuziek")
+# self.__chromecast = pychromecast.get_listed_chromecasts(friendly_name="RobsKamerMuziek")
 # self.__chromecast_player = self.__chromecast.media_controller
 import ChromecastSource
 
@@ -23,7 +23,7 @@ class Chromecast(GObject.Object, Peas.Activatable):
         what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
         self.source = GObject.new(
             ChromecastSource.ChromecastSource,
-            name=_("Chromecast"),
+            name=_("Google Chromecast"),
             shell=shell,
             query_model=model,
             plugin=self

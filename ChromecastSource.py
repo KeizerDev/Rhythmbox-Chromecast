@@ -1,6 +1,7 @@
 import operator
 import socket
 
+import time
 import pychromecast
 from gi.repository import RB, GObject, Gtk
 
@@ -46,9 +47,12 @@ class ChromecastSource(RB.Source):
         self.player = player
         self.db = shell.get_property("db")
 
-        self.chromecast = pychromecast.get_chromecast(friendly_name=Prefs.chromecastName)
+        #self.chromecast = pychromecast.get_listed_chromecasts(friendly_names=Prefs.chromecastName)
+        chromecasts, browser = pychromecast.get_listed_chromecasts(friendly_names=Prefs.chromecastName)
+        #[cc.device.friendly_name for cc in chromecasts]
+        self.chromecast = chromecasts[0]
         self.chromecast.wait()
-        # self.chromecastPlayer = self.chromecast.media_controller
+        self.chromecastPlayer = self.chromecast.media_controller
 
         self.chromecastListeners = ChromecastListeners.ChromecastListeners(self.chromecast)
 
@@ -129,8 +133,8 @@ class ChromecastSource(RB.Source):
             shell.get_property("shell-player"),
             True, True)
 
-        sidebar.set_property("vscrollbar-policy", Gtk.PolicyType.AUTOMATIC)
-        sidebar.set_property("shadow-type", Gtk.ShadowType.NONE)
+#        sidebar.set_property("vscrollbar-policy", Gtk.PolicyType.AUTOMATIC)
+#        sidebar.set_property("shadow-type", Gtk.ShadowType.NONE)
         sidebar.get_style_context().add_class("nowplaying-sidebar")
 
         renderer = Gtk.CellRendererText.new()
